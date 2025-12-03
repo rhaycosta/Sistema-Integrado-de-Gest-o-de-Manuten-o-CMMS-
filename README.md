@@ -8,9 +8,8 @@ Este projeto demonstra o fluxo completo de dados: da abertura do chamado via cel
 
 | Abertura via Mobile (QR Code) | Alerta em Tempo Real (Teams) |
 |:---:|:---:|
-| (https://github.com/user-attachments/assets/907270e5-15ee-468c-a2b3-d1c4bcd8b122) | (https://github.com/user-attachments/assets/d40794a5-3fa7-4400-8116-c4e3a65d2b3b) |
+| <video src="https://github.com/user-attachments/assets/907270e5-15ee-468c-a2b3-d1c4bcd8b122" controls="controls" style="max-width: 100%;"> | <video src="https://github.com/user-attachments/assets/d40794a5-3fa7-4400-8116-c4e3a65d2b3b" controls="controls" style="max-width: 100%;"> |
 | *Operador reporta a falha* | *Bot notifica a equipe técnica* |
-
 
 ### 🧠 A Lógica por Trás (Backend)
 Abaixo, o fluxo de automação que processa as regras de negócio:
@@ -47,14 +46,28 @@ Abaixo, o fluxo de automação que processa as regras de negócio:
 
 ## 🏗️ Como foi construído (Passo a Passo)
 
-### 1. Interface de Campo
-* Criação de formulário padronizado com campos de seleção (Máquina, Tipo de Falha) para padronizar os dados de entrada.
+### 1. Interface de Campo (Front-end)
+* Criação de formulário padronizado no Microsoft Forms contendo campos de seleção (Máquina, Tipo de Falha) para padronizar os dados de entrada.
 * Implementação de upload de fotos para evidência visual do problema.
 
-### 2. Automação de Crise (Power Automate)
-* **Gatilho:** *When a new response is submitted* para monitoramento contínuo.
-* **Lógica Condicional:** Uso da ação *Condition* para filtrar chamados críticos.
-* **Ação de Alerta:** Configuração do bot no Teams para enviar mensagem formatada (Adaptive Card simples) com as variáveis dinâmicas do problema.
+### 2. A Lógica no Power Automate (Back-end)
+O fluxo foi desenvolvido em três estágios principais:
+
+* **Estágio de Captura (Gatilho):**
+    * Utilizado o conector *When a new response is submitted* apontado para o formulário de manutenção.
+    * Adicionada a ação *Get response details* para extrair o conteúdo dinâmico (respostas) utilizando o ID do gatilho.
+
+* **Estágio de Persistência (Banco de Dados):**
+    * Configurada a ação *Add a row into a table* (Excel Online Business).
+    * Realizado o mapeamento de dados (Data Mapping), onde cada coluna do Excel (`Data`, `Máquina`, `Defeito`) recebe a variável correspondente do formulário.
+
+* **Estágio de Decisão e Alerta (Regra de Negócio):**
+    * Implementação de uma estrutura condicional (*Condition*) para verificar a criticidade:
+        ```excel
+        Se Prioridade é igual a ALTA
+        ```
+    * **No ramo "Verdadeiro":** Configurada a integração com o **Microsoft Teams** (ação *Post message in a chat or channel*).
+    * A mensagem foi construída usando HTML/Markdown para destacar as variáveis críticas (Máquina parada e Descrição do erro) para a equipe técnica.
 
 ### 3. Gestão de Dados
 * Estruturação de tabela fato no Excel Online, garantindo que os dados estejam prontos para conexão futura com Power BI.
