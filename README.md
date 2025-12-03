@@ -8,10 +8,9 @@ Este projeto demonstra o fluxo completo de dados: da abertura do chamado via cel
 
 | Abertura via Mobile (QR Code) | Alerta em Tempo Real (Teams) |
 |:---:|:---:|
-| <video src="https://user-images.githubusercontent.com/SEU_ID/preenchimento_do_formulario.mp4" controls="controls" style="max-width: 100%;"> | <video src="https://user-images.githubusercontent.com/SEU_ID/recebimento no teams.mp4" controls="controls" style="max-width: 100%;"> |
-| *Operador reporta a falha na máquina* | *Bot notifica a equipe técnica instantaneamente* |
+| (https://github.com/user-attachments/assets/907270e5-15ee-468c-a2b3-d1c4bcd8b122) | (https://github.com/user-attachments/assets/d40794a5-3fa7-4400-8116-c4e3a65d2b3b) |
+| *Operador reporta a falha* | *Bot notifica a equipe técnica* |
 
-> **Nota:** Para visualizar os vídeos demonstrativos acima, certifique-se de estar visualizando este arquivo no GitHub.
 
 ### 🧠 A Lógica por Trás (Backend)
 Abaixo, o fluxo de automação que processa as regras de negócio:
